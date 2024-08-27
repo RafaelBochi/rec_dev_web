@@ -17,6 +17,7 @@ onMounted(async () => {
     <div class="menu">
       <router-link to="/"> <i class="icon mdi mdi-home-outline" /> Home </router-link>
       <router-link to="/categorias"> <i class="icon mdi mdi-list-box" /> Categorias </router-link>
+      <router-link to="/manufaturas"> <i class="icon mdi mdi-factory" /> Manufaturas </router-link>
       <router-link
         v-for="category in categoryStore.categories"
         :key="category.id"

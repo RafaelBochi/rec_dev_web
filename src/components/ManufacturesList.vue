@@ -1,40 +1,51 @@
 <script setup>
+import { useManufacturesStore } from '@/stores/manufactures'
 import { reactive, onMounted } from 'vue'
-import { useCategoryStore } from '@/stores/category'
 
-const categoryStore = useCategoryStore()
-const newCategory = reactive({
+const manufacturesStore = useManufacturesStore()
+
+const manufacture = reactive({
   name: '',
-  icon: ''
+  country: ''
 })
 
-async function addCategory() {
-  await categoryStore.createCategory(newCategory)
-  newCategory.name = ''
-  newCategory.icon = ''
+function createManufacture() {
+  manufacturesStore.createManufacture(manufacture)
+  manufacture.name = ''
+  manufacture.country = ''
 }
 
-onMounted(async () => {
-  await categoryStore.getCategories()
+onMounted(() => {
+  manufacturesStore.getManufactures()
 })
 </script>
 
 <template>
   <section>
     <div class="form">
-      <input type="text" v-model="newCategory.name" placeholder="Nome" />
-      <input type="text" v-model="newCategory.icon" placeholder="Ícone" />
-      <button @click="addCategory">Adicionar</button>
+      <input type="text" placeholder="Nome" v-model="manufacture.name" />
+      <input type="text" placeholder="Pais" v-model="manufacture.country" />
+      <button @click="createManufacture">Adicionar</button>
     </div>
 
     <div class="list">
-      <div v-if="categoryStore.categories.length === 0">
-        <p>Categorias não encontradas!!!</p>
+      <div
+        v-for="manufacture in manufacturesStore.manufactures"
+        :key="manufacture.id"
+        class="manufacture"
+      >
+        <p class="name">
+          {{ manufacture.name }}
+        </p>
+        <p>
+          {{ manufacture.country }}
+        </p>
+
+        <span class="mdi mdi-delete" @click="manufacturesStore.deleteManufacture(manufacture.id)" />
       </div>
-      <div class="category" v-for="category in categoryStore.categories" :key="category.id">
-        <span class="mdi" :class="category.icon"></span>
-        <p>{{ category.name }}</p>
-        <span class="mdi mdi-delete" @click="categoryStore.deleteCategory(category.id)" />
+
+      <div v-if="manufacturesStore.manufactures.length == 0">
+        <p>Manufaturas não encontradas!!!</p>
       </div>
     </div>
   </section>
@@ -84,7 +95,7 @@ section {
   align-items: center;
   width: 80%;
 }
-.category {
+.manufacture {
   width: 100%;
   min-width: 300px;
   max-width: 500px;
@@ -97,14 +108,14 @@ section {
   background-color: #f0f0f0;
 }
 
-.category p {
+.manufacture .name {
   width: 150px;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.category .mdi-delete {
+.manufacture .mdi-delete {
   cursor: pointer;
   color: red;
 }

@@ -21,6 +21,7 @@ onBeforeRouteUpdate(() => {
       Home
     </RouterLink>
     <router-link to="/categorias"> <i class="icon mdi mdi-list-box" /> Categorias </router-link>
+    <router-link to="/manufaturas"> <i class="icon mdi mdi-factory" /> Manufaturas </router-link>
     <RouterLink to="/login">
       <Account size="25" fillColor="#282828" />
       Login
