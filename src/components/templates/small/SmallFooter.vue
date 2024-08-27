@@ -16,15 +16,21 @@ onBeforeRouteUpdate(() => {
 </script>
 <template>
   <div id="footerMenu" :style="{ display: showMenu ? 'block' : 'none' }">
-    <RouterLink to="/">
+    <RouterLink to="/" class="link-route">
       <HomeOutline size="25" fillColor="#282828" />
-      Home
+      <p>Home</p>
     </RouterLink>
-    <router-link to="/categorias"> <i class="icon mdi mdi-list-box" /> Categorias </router-link>
-    <router-link to="/manufaturas"> <i class="icon mdi mdi-factory" /> Manufaturas </router-link>
-    <RouterLink to="/login">
+    <router-link to="/categorias" class="link-route">
+      <i class="icon mdi mdi-list-box" />
+      <p>Categorias</p>
+    </router-link>
+    <router-link to="/manufaturas" class="link-route">
+      <i class="icon mdi mdi-factory" />
+      <p>Manufaturas</p>
+    </router-link>
+    <RouterLink to="/login" class="link-route">
       <Account size="25" fillColor="#282828" />
-      Login
+      <p>Login</p>
     </RouterLink>
   </div>
   <div class="icons">
@@ -51,14 +57,24 @@ onBeforeRouteUpdate(() => {
 #footerMenu {
   position: fixed;
   bottom: 15%;
-  right: 0;
-
+  right: 20%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   width: 20%;
   border-top: #eeeeee 1px solid;
   background-color: white;
 
   display: block;
   padding: 1rem;
+}
+
+.link-route {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #282828;
+  font-size: 1rem;
+  gap: 20px;
+  width: 100%;
 }
 
 #footerMenu a {
